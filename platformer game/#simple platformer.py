@@ -10,6 +10,10 @@ import random #imports random alowing for randomnes to happen
 pygame.init() #sets up the Pygame to be used for the game
 vec = pygame.math.Vector2 #2 for two dimensional
 
+
+
+    
+
 HEIGHT = 450 #sets the size of the screen 
 WIDTH = 400 #sets the size of the screen
 ACC = 0.5  #sets the variable of  
@@ -20,7 +24,6 @@ FramePerSec = pygame.time.Clock() #sets up the clock
 
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT)) #sets up the surface that the game is played on
 pygame.display.set_caption("Platformer game") #sets up the name of the window the game is played on
-
 
 #----------------------------------------------------------------------------------#
 #class for player 1
@@ -40,7 +43,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
         self.score = 0       #Sets the score of zero at the start of the game
 
     def move(self):
-        self.acc = vec(0,0.5)
+        self.acc = vec(0,0.5) #sets how fast the player can move
    
         pressed_keys = pygame.key.get_pressed() #this checks if the keys are presed to move
                
@@ -49,7 +52,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
         if pressed_keys[K_RIGHT]: #This means if the Right button is cliked it will do the 
             self.acc.x = ACC
                 
-        self.acc.x += self.vel.x * FRIC
+        self.acc.x += self.vel.x * FRIC 
         self.vel += self.acc
         self.pos += self.vel + 0.5 * self.acc
         
@@ -60,19 +63,19 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
             
         self.rect.midbottom = self.pos
 
-    def jump(self): 
+    def jump(self): #sets up what a jump is
         hits = pygame.sprite.spritecollide(self, platforms, False)
         if hits and not self.jumping:
            self.jumping = True 
            self.vel.y = -17
 
-    def cancel_jump(self):
+    def cancel_jump(self): #sets up  cancel jump 
         if self.jumping:
             if self.vel.y < -3:
                 self.vel.y = -3
 
-    def update(self):
-        hits = pygame.sprite.spritecollide(self ,platforms, False)
+    def update(self): #sets up points system for player one
+        hits = pygame.sprite.spritecollide(self ,platforms, False) #sets up what a collision is
         if self.vel.y > 0:        
             if hits:
                 if self.pos.y < hits[0].rect.bottom:
@@ -135,8 +138,8 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
             if self.vel.y < -3:
                 self.vel.y = -3
 
-    def update(self):
-        hits = pygame.sprite.spritecollide(self ,platforms, False)
+    def update(self): #sets up points system for player two
+        hits = pygame.sprite.spritecollide(self ,platforms, False) #sets up what a collision is
         if self.vel.y > 0:        
             if hits:
                 if self.pos.y < hits[0].rect.bottom:
@@ -225,8 +228,9 @@ platforms = pygame.sprite.Group()
 platforms.add(PT1)
 
 #------------------------------------------------------------------------------#
+#Sets up platform genration
 
-for x in range(random.randint(4,5)):
+for x in range(random.randint(4,19)):
     C = True
     pl = platform()
     while C:
@@ -248,8 +252,11 @@ def message_display(text):
     TextRect.center = ((WIDTH/2),(HEIGHT/2))
     displaysurface.blit(TextSurf, TextRect) 
 
+
 #---------------------------------------------------------------------------------#
 #game loop
+
+
 
 while True:
     P1.update() #updates the player class for player one that we defined before
@@ -262,6 +269,9 @@ while True:
 #------------------------------------------------------------------------------------------#
 #sets up the jump and cancel jump for both of the players
         if event.type == pygame.KEYDOWN:    
+            if event.key == pygame.K_ESCAPE:
+                pygame.quit() #ends the pygame task
+                sys.exit() #ends the window
             if event.key == pygame.K_UP:
                 P1.jump()
             if event.key == pygame.K_w:
@@ -316,7 +326,7 @@ while True:
             if plat.rect.top >= HEIGHT:
                 plat.kill()
 #--------------------------------------------------------------------------------#
-    plat_gen()
+    plat_gen() #runs the platform gen code
     displaysurface.fill((39,39,39)) #the colour of the main surface that the game is played on
 
     #sets up the points system for player 1
