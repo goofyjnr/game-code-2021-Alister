@@ -287,12 +287,12 @@ def Game_Loop():
 
             if P1.rect.top > HEIGHT: #Sets it up for if player one dies
                 for entity in all_sprites: #gets all the sprites on the screen 
-                    entity.kill() #kills all the sprites one the screen
+                    entity.kill() #kills all the sprites one the screenw
                     pygame.time.delay(5) #how long it waits before doing anything
                     displaysurface.fill((231,90,124)) #Is the colour of the death screen
                     message_display('Pink has won')
                     pygame.display.update() #updates the display
-                    pygame.time.wait(500) #how long winner screen stays on screen 
+                    pygame.time.delay(500) #how long winner screen stays on screen 
                     Game_Loop()
 
             if P2.rect.top > HEIGHT: #sets it up for if player two dies
