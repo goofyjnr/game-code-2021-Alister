@@ -1,4 +1,4 @@
- #simple platformer
+#simple platformer
 
 #set up of our game
 
@@ -182,7 +182,7 @@ def Game_Loop():
                     return True
             C = False
 
-    def plat_gen():
+    def plat_gen(): #sets up the code for platform genration tell the game what it need to do
         while len(platforms) < 6:
             width = random.randrange(50,100)
             p  = platform()      
@@ -209,15 +209,16 @@ def Game_Loop():
 
     #-------------------------------------------------------------------------------#
     #sets up the main platform that the players spawn on
+
     PT1.surf = pygame.Surface((WIDTH, 20))
     PT1.surf.fill((251,176,45)) #this sets the colour of the main platform
     PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
     PT1.moving = False #this stops the main bottom platfor form moving
 
     #-----------------------------------------------------------------------------#
+    #sprites code
 
-
-    #sets up
+    #sets up all of the sprites 
     all_sprites = pygame.sprite.Group()
     all_sprites.add(PT1)
     all_sprites.add(P1)
@@ -241,21 +242,19 @@ def Game_Loop():
 
     #-------------------------------------------------------------------------------#
     #text based code
-    def text_objects(text, font):
-        textSurface = font.render(text, True, (0,0,0))
+    def text_objects(text, font): #sets up all of the text based code
+        textSurface = font.render(text, True, (0,0,0)) 
         return textSurface, textSurface.get_rect()
 
     def message_display(text):
         largeText = pygame.font.Font('freesansbold.ttf',50)
         TextSurf, TextRect = text_objects(text, largeText)
-        TextRect.center = ((WIDTH/2),(HEIGHT/2))
+        TextRect.center = ((WIDTH/2),(HEIGHT/2)) #sets up the size of the text
         displaysurface.blit(TextSurf, TextRect) 
 
 
     #---------------------------------------------------------------------------------#
     #game loop
-
-
 
     while True:
         P1.update() #updates the player class for player one that we defined before
@@ -271,10 +270,10 @@ def Game_Loop():
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit() #ends the pygame task
                     sys.exit() #ends the window
-                if event.key == pygame.K_UP:
-                    P1.jump()
-                if event.key == pygame.K_w:
-                    P2.jump()
+                if event.key == pygame.K_UP: #if the up key is pressed the jump function happens
+                    P1.jump() #runs the jump function for player 1
+                if event.key == pygame.K_w: #if the w key is pressed the jump function happens
+                    P2.jump() #runs the jump function for player 2
 
             if event.type == pygame.KEYUP:    
                 if event.key == pygame.K_UP: #if the up key is presed
@@ -285,25 +284,25 @@ def Game_Loop():
     #----------------------------------------------------------------------------------------#
     #sets up for the players to die and what happens for both players
 
-            if P1.rect.top > HEIGHT: #Sets it up for if player one dies
-                for entity in all_sprites: #gets all the sprites on the screen 
-                    entity.kill() #kills all the sprites one the screenw
-                    pygame.time.delay(5) #how long it waits before doing anything
-                    displaysurface.fill((231,90,124)) #Is the colour of the death screen
-                    message_display('Pink has won')
-                    pygame.display.update() #updates the display
-                    pygame.time.delay(500) #how long winner screen stays on screen 
-                    Game_Loop()
+        if P1.rect.top > HEIGHT: #Sets it up for if player one dies
+            for entity in all_sprites: #gets all the sprites on the screen 
+                entity.kill() #kills all the sprites one the screen
+                pygame.time.delay(5) #how long it waits before doing anything
+                displaysurface.fill((231,90,124)) #Is the colour of the death screen
+                message_display('Pink has won')
+                pygame.display.update() #updates the display
+                pygame.time.wait(500) #how long winner screen stays on screen 
+                Game_Loop() #does the game loop function witch replays the game
 
-            if P2.rect.top > HEIGHT: #sets it up for if player two dies
-                for entity in all_sprites: #gets all the sprites on the screen 
-                    entity.kill() #kills all the sprites one the screenw
-                    pygame.time.delay(5) #how long it waits before doing anything
-                    displaysurface.fill((8,126,139)) #Is the colour of the death screen
-                    message_display('Blue has won')
-                    pygame.display.update() #updates the display
-                    pygame.time.delay(500) #how long winner screen stays on screen 
-                    Game_Loop()
+        if P2.rect.top > HEIGHT: #sets it up for if player two dies
+            for entity in all_sprites: #gets all the sprites on the screen 
+                entity.kill() #kills all the sprites one the screenw
+                pygame.time.delay(5) #how long it waits before doing anything
+                displaysurface.fill((8,126,139)) #Is the colour of the death screen
+                message_display('Blue has won')
+                pygame.display.update() #updates the display
+                pygame.time.delay(500) #how long winner screen stays on screen 
+                Game_Loop() #does the game loop function witch replays the game
             
     #--------------------------------------------------------------------------------#
 
