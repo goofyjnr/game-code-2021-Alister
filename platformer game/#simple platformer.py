@@ -308,6 +308,10 @@ def Game_Loop():
 
     #sets up the platform being getting rid of its self
 
+
+        #these codes are for when the platforms are meant to die
+        #they work by seeing if the player is at the top of the screen and then once they are off the screen 
+        #it kills all of them this means that they can no longer be used
         if P1.rect.top <= HEIGHT / 3: 
             P1.pos.y += abs(P1.vel.y)
             for plat in platforms:
