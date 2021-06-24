@@ -289,7 +289,7 @@ def Game_Loop():
                 entity.kill() #kills all the sprites one the screen
                 pygame.time.delay(5) #how long it waits before doing anything
                 displaysurface.fill((231,90,124)) #Is the colour of the death screen
-                message_display('Pink has won')
+                message_display('Pink has won!')
                 pygame.display.update() #updates the display
                 pygame.time.wait(500) #how long winner screen stays on screen 
                 Game_Loop() #does the game loop function witch replays the game
@@ -299,7 +299,7 @@ def Game_Loop():
                 entity.kill() #kills all the sprites one the screenw
                 pygame.time.delay(5) #how long it waits before doing anything
                 displaysurface.fill((8,126,139)) #Is the colour of the death screen
-                message_display('Blue has won')
+                message_display('Blue has won!')
                 pygame.display.update() #updates the display
                 pygame.time.delay(500) #how long winner screen stays on screen 
                 Game_Loop() #does the game loop function witch replays the game

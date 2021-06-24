@@ -25,11 +25,63 @@ FramePerSec = pygame.time.Clock() #sets up the clock
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT)) #sets up the surface that the game is played on
 pygame.display.set_caption("Platformer game") #sets up the name of the window the game is played on
 
+global Player1 
+global Player2
+
+
+
 #---------------------------------------------------------------------------------------#
 #places for all my classes
+def set_up():
+    #sets up the varibles that are used in the games
+
+    #PT1 is the main platform that the player spawns on
+
+    PT1 = platform() #sets PT1 as a platform class 
+    PT1.point = False #stops the main platform from giving you points 
+    P1 = Player1() #sets player 1 as the player class
+    P2 = Player2() # sets up player 2 as the player 2 class
+    
+
+    #-------------------------------------------------------------------------------#
+    #sets up the main platform that the players spawn on
+
+    PT1.surf = pygame.Surface((WIDTH, 20))
+    PT1.surf.fill((251,176,45)) #this sets the colour of the main platform
+    PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
+    PT1.moving = False #this stops the main bottom platfor form moving
+
+    #-----------------------------------------------------------------------------#
+    #sprites code
+
+    #sets up all of the sprites 
+    all_sprites = pygame.sprite.Group()
+    all_sprites.add(PT1)
+    all_sprites.add(P1)
+    all_sprites.add(P2)
+
+    platforms = pygame.sprite.Group()
+    platforms.add(PT1)
+
+    #------------------------------------------------------------------------------#
+    #Sets up platform genration
+
+    for x in range(random.randint(4,19)):
+        C = True
+        pl = platform()
+        while C:
+            pl = platform()
+            C = check(pl, platforms)
+            platforms.add(pl)
+            all_sprites.add(pl)
+
+
 
 #class for player 1
 class Player1(pygame.sprite.Sprite): #this is the over all class for all of the player 1 things this also sets up the sprite of the player
+    
+    global set_up
+
     def __init__(self):
         super().__init__() #this starts up the spite
         #self.image = pygame.image.load("character.png")  #Im not useing this at the moment but i might
@@ -94,6 +146,9 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
 #class for player 2
 
 class Player2(pygame.sprite.Sprite): #this is the over all class for all of the player 2 things this also sets up the sprite of the player
+    
+    global set_up 
+    
     def __init__(self):
         super().__init__() #this starts up the spite
         #self.image = pygame.image.load("character.png")  #Im not useing this at the moment but i might
@@ -154,8 +209,15 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
 #-------------------------------------------------------------------------------#
 
 #class for the platforms
+P1 = Player1() #sets player 1 as the player class
+P2 = Player2() # sets up player 2 as the player 2 class
 
 class platform(pygame.sprite.Sprite):
+    
+    global set_up
+    global Player1
+    global Player2
+    
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((random.randint(50,100), 12))
@@ -213,53 +275,11 @@ def message_display(text):
 #--------------------------------------------------------------------------------------#
 
 
-
-
 def Game_Loop():
     
+
+    global set_up
     #---------------------------------------------------------------------------------#
-    
-
-     #sets up the varibles that are used in the games
-
-    #PT1 is the main platform that the player spawns on
-
-    PT1 = platform() #sets PT1 as a platform class 
-    PT1.point = False #stops the main platform from giving you points 
-    P1 = Player1() #sets player 1 as the player class
-    P2 = Player2() # sets up player 2 as the player 2 class
-
-    #-------------------------------------------------------------------------------#
-    #sets up the main platform that the players spawn on
-
-    PT1.surf = pygame.Surface((WIDTH, 20))
-    PT1.surf.fill((251,176,45)) #this sets the colour of the main platform
-    PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
-    PT1.moving = False #this stops the main bottom platfor form moving
-
-    #-----------------------------------------------------------------------------#
-    #sprites code
-
-    #sets up all of the sprites 
-    all_sprites = pygame.sprite.Group()
-    all_sprites.add(PT1)
-    all_sprites.add(P1)
-    all_sprites.add(P2)
-
-    platforms = pygame.sprite.Group()
-    platforms.add(PT1)
-
-    #------------------------------------------------------------------------------#
-    #Sets up platform genration
-
-    for x in range(random.randint(4,19)):
-        C = True
-        pl = platform()
-        while C:
-            pl = platform()
-            C = check(pl, platforms)
-            platforms.add(pl)
-            all_sprites.add(pl)
 
     while True:
         
