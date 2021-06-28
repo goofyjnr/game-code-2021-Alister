@@ -317,8 +317,11 @@ def message_display(text):
     TextSurf, TextRect = text_objects(text, largeText)
     TextRect.center = ((WIDTH/2),(HEIGHT/2)) #sets up the size of the text
     displaysurface.blit(TextSurf, TextRect) 
+    
 #---------------------------------------------------------------------------------#
-def reset():                #restarting game function
+#restarting game function
+
+def reset():                
     global playeralive          #changes playeralive variable across the whole code
     global pause
     playeralive = True          #sets playeralive as true
@@ -376,7 +379,7 @@ def reset():                #restarting game function
 
         f = pygame.font.SysFont("Verdana", 20)                  #score font and size
         g  = f.render(str(P1.score), True, (8,126,139))        #score colour
-        displaysurface.blit(g, (WIDTH/2, 10))                   #score location and prints score
+        displaysurface.blit(g, (WIDTH/1.25, 10))                   #score location and prints score
 
         f = pygame.font.SysFont("Verdana", 20)     #sets the font and size
         j  = f.render(str(P2.score), True, (231,90,124))   #Sets up the points system that can go u
@@ -388,8 +391,10 @@ def reset():                #restarting game function
 
         pygame.display.update()     #updates screen
         FramePerSec.tick(FPS)
+#------------------------------------------------------------------------------------------#
+#game over screen function
 
-def gameover():             #game over screen function
+def gameover():             
     font = pygame.font.SysFont("Verdana", 50)                   #font type and size
     text = font.render("Game Over.", True, (255,255,255))       #text and font colour
 
@@ -464,7 +469,7 @@ while True:         #game loop
 
         f = pygame.font.SysFont("Verdana", 20)                  #score font and size
         g  = f.render(str(P1.score), True, (8,126,139))        #score colour
-        displaysurface.blit(g, (WIDTH/2, 10))                   #score location and prints score
+        displaysurface.blit(g, (WIDTH/1.25, 10))                   #score location and prints score
 
          #sets up the points system for player 2
         f = pygame.font.SysFont("Verdana", 20)     #sets the font and size
