@@ -242,7 +242,7 @@ def button (msg, x, y, w, h, ic, ac, action=None): #makes button work -- inside 
         if click[0] == 1 and action != None:
             action()
     else:
-        pygame.draw.rect(displaysurface, ic, (x,y,w,h))    #draws background rectangle -- has colour, location and size
+        pygame.draw.rect(displaysurface, ic, (x,y,w,h))#draws background rectangle -- has colour, location and size
     font = pygame.font.SysFont('Verdana', 20)  #variable for font type and text size
     text = font.render(msg, True, (0,0,0)) #varible for text and text colour
     displaysurface.blit(text, (x, y))  #prints text and text location
