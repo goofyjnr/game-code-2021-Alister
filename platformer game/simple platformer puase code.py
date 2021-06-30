@@ -21,6 +21,18 @@ ACC = 0.5  #sets the variable of
 FRIC = -0.12 #sets the Friction as a variable
 FPS = 60 #sets the frames per second
 
+
+#---------------------------------------------------------------#
+#colour varbails
+P1_Colour = (8,126,139)
+P2_Colour = (231,90,124)
+PT1_Colour = (251,176,45)
+platform_colour = (96,153,45)
+Background_colour = (39,39,39)
+
+#--------------------------------------------------------------#
+
+
 pause = False  #sets pause variable as false
 
 FramePerSec = pygame.time.Clock() #sets up the clock
@@ -36,7 +48,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
         super().__init__() #this starts up the spite
         #self.image = pygame.image.load("character.png")  #Im not useing this at the moment but i might
         self.surf = pygame.Surface((30, 30))#tells where on the surface it is
-        self.surf.fill((8,126,139)) #changes the colour of the sptite
+        self.surf.fill((P1_Colour)) #changes the colour of the sptite
         self.rect = self.surf.get_rect() #makes it a rectangle
 
         self.pos = vec((390, 360)) #X and Y cords of the player at the start 
@@ -107,9 +119,8 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
         super().__init__() #this starts up the spite
         #self.image = pygame.image.load("character.png")  #Im not useing this at the moment but i might
         self.surf = pygame.Surface((30, 30))#tells where on the surface it is
-        self.surf.fill((231,90,124)) #changes the colour of the sptite
+        self.surf.fill((P2_Colour)) #changes the colour of the sptite
         self.rect = self.surf.get_rect() #makes it a rectangle
-
         self.pos = vec((10, 360)) #X and Y cords of the player at the start 
         self.vel = vec(0,0) #sets the velsoity of the player moving
         self.acc = vec(0.5,0) #sets the acceleration
@@ -119,7 +130,6 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
 
     def move(self):
         self.acc = vec(0,0.5)
-
         pressed_keys = pygame.key.get_pressed() #this checks if the keys are presed to move
             
         if pressed_keys[K_a]: #this means if the left button is clicked it will do the code
@@ -161,11 +171,11 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
                     self.vel.y = 0
                     self.jumping = False
     def restart(self):
-        self.pos = vec((10, 360))       #spawn position on a x,y axis
-        self.vel = vec(0,0)             #velocity on a x,y axis
-        self.acc = vec(0,0)             #acceleration
-        self.jumping = False            #sets jumping as false
-        self.score = 0                  #sets the score to zero to start with
+        self.pos = vec((10, 360))  #spawn position on a axis
+        self.vel = vec(0,0)  #velocity 
+        self.acc = vec(0,0) #acceleration
+        self.jumping = False  #sets jumping as false
+        self.score = 0  #sets the score to zero to start with
                     
 #-------------------------------------------------------------------------------#
 
@@ -175,7 +185,7 @@ class platform(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.surf = pygame.Surface((random.randint(50,100), 12))
-        self.surf.fill((96,153,45)) #sets the colour of the main platform
+        self.surf.fill((platform_colour)) #sets the colour of the main platform
         self.rect = self.surf.get_rect(center = (random.randint(0,WIDTH-10), random.randint(0, HEIGHT-30))) # sets how big the platforms can be
         self.point = True #alows platfoms to count for points
         self.speed = random.randint(-1, 3) #this sets the speed of the platforms to ramdom between -1 and 3
@@ -190,7 +200,7 @@ class platform(pygame.sprite.Sprite):
                 self.rect.left = WIDTH
     def restart(self):
         self.surf = pygame.Surface((WIDTH, 20))                                  #size of the platform
-        self.surf.fill((251,176,45))                                              #bottom platform colour
+        self.surf.fill((PT1_Colour))                                              #bottom platform colour
         self.rect = self.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))           #platform location
         self.moving = False                                                      #stops platform from moving
         self.point = False
@@ -247,7 +257,7 @@ def unpaused(): #unpause game function
 
 def paused(): #pause game function
     font = pygame.font.SysFont("Verdana", 50)  #font type and size
-    text = font.render("Paused.", True, (255,255,255))#text and font colour
+    text = font.render("Paused", True, (255,255,255))#text and font colour
 
     while pause:  #while True loop works when pause is changed to True
         for event in pygame.event.get():
@@ -256,13 +266,13 @@ def paused(): #pause game function
                 pygame.quit()
                 quit()
         
-        displaysurface.fill((0,0,0)) #changes screen colour
+        displaysurface.fill((Background_colour)) #changes screen colour
         displaysurface.blit(text, (WIDTH/4, HEIGHT/5)) #print text and text location
 
-        button("Continue", 75, 250, 100, 60, (0,255,0), (0,100,0), unpaused)#runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, unpause function
-        button("Quit", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)#runs quitgame function
+        button("Continue", 75, 250, 100, 60, (14,229,57), (131,198,144), unpaused)#runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, unpause function
+        button("Quit", 225, 250, 100, 60, (200,3,3), (100,3,3), quitgame)#runs quitgame function
 
-        pygame.display.update()         #updates screen
+        pygame.display.update() #updates screen
 
 #------------------------------------------------------------------------------------#
 #sets up the varibles that are used in the games
@@ -278,7 +288,7 @@ P2 = Player2() # sets up player 2 as the player 2 class
 #sets up the main platform that the players spawn on
 
 PT1.surf = pygame.Surface((WIDTH, 20))
-PT1.surf.fill((251,176,45)) #this sets the colour of the main platform
+PT1.surf.fill((PT1_Colour)) #this sets the colour of the main platform
 PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
 PT1.moving = False #this stops the main bottom platfor form moving
 
@@ -306,18 +316,6 @@ for x in range(random.randint(4,19)):
     platforms.add(pl)
     all_sprites.add(pl)
 
-#-------------------------------------------------------------------------------#
-#text based code
-def text_objects(text, font): #sets up all of the text based code
-    textSurface = font.render(text, True, (0,0,0)) 
-    return textSurface, textSurface.get_rect()
-
-def message_display(text):
-    largeText = pygame.font.Font('freesansbold.ttf',50)
-    TextSurf, TextRect = text_objects(text, largeText)
-    TextRect.center = ((WIDTH/2),(HEIGHT/2)) #sets up the size of the text
-    displaysurface.blit(TextSurf, TextRect) 
-    
 #---------------------------------------------------------------------------------#
 #restarting game function
 
@@ -337,20 +335,21 @@ def reset():
             if event.type == QUIT:
                 pygame.quit()#quits game
                 sys.exit()#ends program
-            if event.type == pygame.KEYDOWN:        #only works when the key is being held down
-                if event.key == pygame.K_UP:        #up arrow key pressed down
-                    P1.jump()               #runs jump function
+            if event.type == pygame.KEYDOWN:#only works when the key is being held down
+                if event.key == pygame.K_UP: #up arrow key pressed down
+                    P1.jump() #runs jump function
                 if event.key == pygame.K_w:
                     P2.jump()
-                elif event.key == pygame.K_p:       #p key is pressed down
+                elif event.key == pygame.K_p:#p key is pressed down
                     pause = True
-                    paused()                #runs pause function
-            if event.type == pygame.KEYUP:          #stops working when the key isn't being held down
-                if event.key == pygame.K_UP:        #up arrow key is no longer pressed down
-                    P1.cancel_jump()        #runs cancel jump function
-                if event.key == pygame.K_w:        #up arrow key is no longer pressed down
+                    paused() #runs pause function
+            if event.type == pygame.KEYUP: #stops working when the key isn't being held down
+                if event.key == pygame.K_UP: #up arrow key is no longer pressed down
+                    P1.cancel_jump()  #runs cancel jump function
+                if event.key == pygame.K_w:#w arrow key is no longer pressed down
                     P2.cancel_jump()    
-
+#-----------------------------------------------------------------#
+#code that kills player
         if P1.rect.top <= HEIGHT / 3:
             P1.pos.y += abs(P1.vel.y)
             for plat in platforms:
@@ -375,7 +374,7 @@ def reset():
 
         plat_gen()          #platform generation
 
-        displaysurface.fill((39,39,39))                         #I dont know how to word this but it makes it so that as the objects move they dont leave behind a trail
+        displaysurface.fill((Background_colour))   #sets the background colour
 
         f = pygame.font.SysFont("Verdana", 20)                  #score font and size
         g  = f.render(str(P1.score), True, (8,126,139))        #score colour
@@ -396,7 +395,7 @@ def reset():
 
 def gameover():             
     font = pygame.font.SysFont("Verdana", 50)                   #font type and size
-    text = font.render("Game Over.", True, (255,255,255))       #text and font colour
+    text = font.render("You died!", True, (255,255,255))       #text and font colour
 
     while not playeralive:        #while True loop works when pause is changed to True
         for event in pygame.event.get():
@@ -405,12 +404,12 @@ def gameover():
                 pygame.quit()
                 quit()
         
-        displaysurface.fill((0,0,0))                        #changes screen colour
+        displaysurface.fill((Background_colour))                        #changes screen colour
         displaysurface.blit(text, (WIDTH/4, HEIGHT/5))      #print text and text location
         displaysurface.blit(g, (WIDTH/2, 10))                   #score location and prints score
 
-        button("Continue", 75, 250, 100, 60, (0,255,255), (0,100,100), reset)          #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
-        button("Quit", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)              #same as above except runs quitgame function
+        button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset)          #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
+        button("Quit?", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)              #same as above except runs quitgame function
 
         pygame.display.update()         #updates screen
 #---------------------------------------------------------------------------------#
@@ -465,7 +464,7 @@ while True:         #game loop
 
         plat_gen()          #platform generation
 
-        displaysurface.fill((39,39,39))                         #I dont know how to word this but it makes it so that as the objects move they dont leave behind a trail
+        displaysurface.fill((Background_colour))      
 
         f = pygame.font.SysFont("Verdana", 20)                  #score font and size
         g  = f.render(str(P1.score), True, (8,126,139))        #score colour
