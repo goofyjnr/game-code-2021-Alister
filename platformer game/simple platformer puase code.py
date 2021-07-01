@@ -397,16 +397,16 @@ def gameover():
     font = pygame.font.SysFont("Verdana", 50)                   #font type and size
     text = font.render("You died!", True, (255,255,255))       #text and font colour
 
-    while not playeralive:        #while True loop works when pause is changed to True
+    while not playeralive: #while True loop works when pause is changed to True
         for event in pygame.event.get():
             #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
         
-        displaysurface.fill((Background_colour))                        #changes screen colour
+        displaysurface.fill((Background_colour))  #changes screen colour
         displaysurface.blit(text, (WIDTH/4, HEIGHT/5))      #print text and text location
-        displaysurface.blit(g, (WIDTH/2, 10))                   #score location and prints score
+        
 
         button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset)          #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
         button("Quit?", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)              #same as above except runs quitgame function
