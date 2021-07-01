@@ -38,7 +38,7 @@ pause = False  #sets pause variable as false
 FramePerSec = pygame.time.Clock() #sets up the clock
 
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT)) #sets up the surface that the game is played on
-pygame.display.set_caption("Platformer game") #sets up the name of the window the game is played on
+pygame.display.set_caption("Platformer game yay") #sets up the name of the window the game is played on
 
 #----------------------------------------------------------------------------------#
 #class for player 1
@@ -46,7 +46,7 @@ pygame.display.set_caption("Platformer game") #sets up the name of the window th
 class Player1(pygame.sprite.Sprite): #this is the over all class for all of the player 1 things this also sets up the sprite of the player
     def __init__(self):
         super().__init__() #this starts up the spite
-        #self.image = pygame.image.load("character.png")  #Im not useing this at the moment but i might
+        #self.image = pygame.image.load("character.png")  #Im not useing this 
         self.surf = pygame.Surface((30, 30))#tells where on the surface it is
         self.surf.fill((P1_Colour)) #changes the colour of the sptite
         self.rect = self.surf.get_rect() #makes it a rectangle
@@ -258,6 +258,7 @@ def unpaused(): #unpause game function
 def paused(): #pause game function
     font = pygame.font.SysFont("Verdana", 50)  #font type and size
     text = font.render("Paused", True, (255,255,255))#text and font colour
+    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/5))
 
     while pause:  #while True loop works when pause is changed to True
         for event in pygame.event.get():
@@ -267,7 +268,7 @@ def paused(): #pause game function
                 quit()
         
         displaysurface.fill((Background_colour)) #changes screen colour
-        displaysurface.blit(text, (WIDTH/4, HEIGHT/5)) #print text and text location
+        displaysurface.blit(text, (textlocation)) #print text and text location
 
         button("Continue", 75, 250, 100, 60, (14,229,57), (131,198,144), unpaused)#runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, unpause function
         button("Quit", 225, 250, 100, 60, (200,3,3), (100,3,3), quitgame)#runs quitgame function
@@ -295,7 +296,7 @@ PT1.moving = False #this stops the main bottom platfor form moving
 #-----------------------------------------------------------------------------#
 #sprites code
 
-#sets up all of the sprites 
+#sets up all of the sprites that are needed for the game
 all_sprites = pygame.sprite.Group()
 all_sprites.add(PT1)
 all_sprites.add(P1)
@@ -320,15 +321,17 @@ for x in range(random.randint(4,19)):
 #restarting game function
 
 def reset():                
-    global playeralive          #changes playeralive variable across the whole code
+    global playeralive1 
+    global playeralive2         #changes playeralive variable across the whole code
     global pause
-    playeralive = True          #sets playeralive as true
+    playeralive1 = True          #sets playeralive as true
+    playeralive2 = True          #sets playeralive as true
 
     P1.restart()  #resets player 1 location
     PT1.restart() #resets floor platform location so it it at the bottom of the screen
     P2.restart()  #resets player 2 location
 
-    while playeralive:
+    while playeralive1 or playeralive2:
         P1.update()
         P2.update()
         for event in pygame.event.get():
@@ -359,18 +362,18 @@ def reset():
 
         if P1.rect.top > HEIGHT:
             for entity in all_sprites:
-                playeralive = False
+                playeralive1 = False
 
         if P2.rect.top <= HEIGHT / 3:
-            P2.pos.y += abs(P1.vel.y)
+            P2.pos.y += abs(P2.vel.y)
             for plat in platforms:
-                plat.rect.y += abs(P1.vel.y)
+                plat.rect.y += abs(P2.vel.y)
                 if plat.rect.top >= HEIGHT:
                     plat.kill()
 
         if P2.rect.top > HEIGHT:
             for entity in all_sprites:
-                playeralive = False
+                playeralive2 = False
 
         plat_gen()          #platform generation
 
@@ -394,10 +397,11 @@ def reset():
 #game over screen function
 
 def gameover():             
-    font = pygame.font.SysFont("Verdana", 50)                   #font type and size
-    text = font.render("You died!", True, (255,255,255))       #text and font colour
+    font = pygame.font.SysFont("Verdana", 30)                   #font type and size
+    text = font.render("Both of you died", True, (255,255,255))       #text and font colour
+    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/5))
 
-    while not playeralive: #while True loop works when pause is changed to True
+    while not playeralive1 or playeralive2: #while True loop works when pause is changed to True
         for event in pygame.event.get():
             #print(event)
             if event.type == pygame.QUIT:
@@ -405,7 +409,7 @@ def gameover():
                 quit()
         
         displaysurface.fill((Background_colour))  #changes screen colour
-        displaysurface.blit(text, (WIDTH/4, HEIGHT/5))      #print text and text location
+        displaysurface.blit(text, (textlocation))      #print text and text location
         
 
         button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset)          #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
@@ -416,9 +420,10 @@ def gameover():
 #game loop
 
 while True:         #game loop
-    playeralive = True
+    playeralive1 = True
+    playeralive2 = True
     
-    while playeralive:
+    while playeralive1 or playeralive2:
         P1.update()
         P2.update()
         for event in pygame.event.get():
@@ -448,7 +453,7 @@ while True:         #game loop
 
         if P1.rect.top > HEIGHT:
             for entity in all_sprites:
-                playeralive = False             #stops while True loop
+                playeralive1 = False             #stops while True loop
 
         if P2.rect.top <= HEIGHT / 3:
             P2.pos.y += abs(P1.vel.y)
@@ -459,7 +464,7 @@ while True:         #game loop
 
         if P2.rect.top > HEIGHT:
             for entity in all_sprites:
-                playeralive = False
+                playeralive2 = False
 
 
         plat_gen()          #platform generation
