@@ -164,9 +164,9 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
         if self.vel.y > 0:        
             if hits:
                 if self.pos.y < hits[0].rect.bottom:
-                    if hits[0].point == True:   ##
-                        hits[0].point = False   ##
-                        self.score += 1         ##                
+                    if hits[0].point == True:   
+                        hits[0].point = False   
+                        self.score += 1                        
                     self.pos.y = hits[0].rect.top +1
                     self.vel.y = 0
                     self.jumping = False
@@ -205,7 +205,7 @@ class platform(pygame.sprite.Sprite):
         self.moving = False #stops platform from moving
         self.point = False
         
-        all_sprites.add(PT1)            #adds platform
+        all_sprites.add(PT1) #adds platform
         platforms.add(PT1)
 
 def check(platform, groupies):
@@ -262,7 +262,6 @@ def paused(): #pause game function
 
     while pause:  #while True loop works when pause is changed to True
         for event in pygame.event.get():
-            #print(event)
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -321,11 +320,11 @@ for x in range(random.randint(4,19)):
 #restarting game function
 
 def reset():                
-    global playeralive1 
-    global playeralive2         #changes playeralive variable across the whole code
+    global playeralive1 #changes playeralive variable across the whole code
+    global playeralive2         
     global pause
-    playeralive1 = True          #sets playeralive as true
-    playeralive2 = True          #sets playeralive as true
+    playeralive1 = True #sets playeralive as true
+    playeralive2 = True #sets playeralive as true
 
     P1.restart()  #resets player 1 location
     PT1.restart() #resets floor platform location so it it at the bottom of the screen
@@ -375,6 +374,7 @@ def reset():
             for entity in all_sprites:
                 playeralive2 = False
 
+#------------------------------------------------------------------#
         plat_gen()          #platform generation
 
         displaysurface.fill((Background_colour))   #sets the background colour
@@ -391,19 +391,19 @@ def reset():
             displaysurface.blit(entity.surf, entity.rect)
             entity.move()
 
-        pygame.display.update()     #updates screen
+        pygame.display.update()
         FramePerSec.tick(FPS)
 #------------------------------------------------------------------------------------------#
 #game over screen function
 
 def gameover():             
-    font = pygame.font.SysFont("Verdana", 30)                   #font type and size
-    text = font.render("Both of you died", True, (255,255,255))       #text and font colour
-    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/5))
+    font = pygame.font.SysFont("Verdana", 30)#font type and size
+    text = font.render("Game over", True, (255,255,255))#text and font colour
+    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/4))
 
     while not playeralive1 or playeralive2: #while True loop works when pause is changed to True
         for event in pygame.event.get():
-            #print(event)
+            
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
@@ -412,8 +412,8 @@ def gameover():
         displaysurface.blit(text, (textlocation))      #print text and text location
         
 
-        button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset)          #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
-        button("Quit?", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)              #same as above except runs quitgame function
+        button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset) #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
+        button("Quit?", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)  #same as above except runs quitgame function
 
         pygame.display.update()         #updates screen
 #---------------------------------------------------------------------------------#
@@ -453,7 +453,7 @@ while True:         #game loop
 
         if P1.rect.top > HEIGHT:
             for entity in all_sprites:
-                playeralive1 = False             #stops while True loop
+                playeralive1 = False       
 
         if P2.rect.top <= HEIGHT / 3:
             P2.pos.y += abs(P1.vel.y)
