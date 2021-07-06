@@ -199,10 +199,10 @@ class platform(pygame.sprite.Sprite):
             if self.speed < 0 and self.rect.right < 0:
                 self.rect.left = WIDTH
     def restart(self):
-        self.surf = pygame.Surface((WIDTH, 20))                                  #size of the platform
-        self.surf.fill((PT1_Colour))                                              #bottom platform colour
-        self.rect = self.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))           #platform location
-        self.moving = False                                                      #stops platform from moving
+        self.surf = pygame.Surface((WIDTH, 20))#size of the platform
+        self.surf.fill((PT1_Colour))#bottom platform colour
+        self.rect = self.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))#platform location
+        self.moving = False #stops platform from moving
         self.point = False
         
         all_sprites.add(PT1)            #adds platform
