@@ -27,7 +27,7 @@ FPS = 60 #sets the frames per second
 P1_Colour = (8,126,139)
 P2_Colour = (231,90,124)
 PT1_Colour = (251,176,45)
-platform_colour = (96,153,45)
+platform_colour = (30, 176, 35)
 Background_colour = (39,39,39)
 
 #--------------------------------------------------------------#
@@ -38,7 +38,7 @@ pause = False  #sets pause variable as false
 FramePerSec = pygame.time.Clock() #sets up the clock
 
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT)) #sets up the surface that the game is played on
-pygame.display.set_caption("Platformer game yay") #sets up the name of the window the game is played on
+pygame.display.set_caption("Platformer game :(") #sets up the name of the window the game is played on
 
 #----------------------------------------------------------------------------------#
 #class for player 1
