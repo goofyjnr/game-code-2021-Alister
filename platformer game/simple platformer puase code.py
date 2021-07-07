@@ -83,7 +83,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
         hits = pygame.sprite.spritecollide(self, platforms, False)
         if hits and not self.jumping:
             self.jumping = True 
-            self.vel.y = -17
+            self.vel.y = -18
 
     def cancel_jump(self): #sets up  cancel jump 
         if self.jumping:
@@ -152,7 +152,7 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
         hits = pygame.sprite.spritecollide(self, platforms, False)
         if hits and not self.jumping:
             self.jumping = True 
-            self.vel.y = -17
+            self.vel.y = -18
 
     def cancel_jump(self):
         if self.jumping:
@@ -397,7 +397,7 @@ def reset():
 #game over screen function
 
 def gameover():             
-    font = pygame.font.SysFont("Verdana", 30)#font type and size
+    font = pygame.font.Font("Tourney-Italic.ttf", 70)#font type and size
     text = font.render("Game over", True, (255,255,255))#text and font colour
     textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/4))
 
@@ -412,8 +412,8 @@ def gameover():
         displaysurface.blit(text, (textlocation))      #print text and text location
         
 
-        button("Continue?", 75, 250, 100, 60, (50,255,25), (25,150,15), reset) #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
-        button("Quit?", 225, 250, 100, 60, (255,0,0), (100,0,0), quitgame)  #same as above except runs quitgame function
+        button("Continue?", 75, 190, 100, 70, (50,255,25), (25,150,15), reset) #runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, reset function
+        button("Quit?", 225, 190, 100, 70, (255,0,0), (100,0,0), quitgame)  #same as above except runs quitgame function
 
         pygame.display.update()         #updates screen
 #---------------------------------------------------------------------------------#
@@ -487,4 +487,4 @@ while True:         #game loop
         pygame.display.update()     #updates screen
         FramePerSec.tick(FPS)
     
-    gameover()          #runs gameover function
+    gameover()#runs gameover function
