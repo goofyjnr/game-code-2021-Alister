@@ -243,7 +243,7 @@ def button (msg, x, y, w, h, ic, ac, action=None): #makes button work -- inside 
             action()
     else:
         pygame.draw.rect(displaysurface, ic, (x,y,w,h))#draws background rectangle -- has colour, location and size
-    font = pygame.font.SysFont('Verdana', 20)  #variable for font type and text size
+    font = pygame.font.Font('Exo2-italic.ttf', 20)  #variable for font type and text size
     text = font.render(msg, True, (0,0,0)) #varible for text and text colour
     displaysurface.blit(text, (x, y))  #prints text and text location
 
@@ -256,9 +256,9 @@ def unpaused(): #unpause game function
     pause = False #changes pause variable to False
 
 def paused(): #pause game function
-    font = pygame.font.SysFont("Verdana", 50)  #font type and size
+    font = pygame.font.Font("Tourney-Italic.ttf", 70)  #font type and size
     text = font.render("Paused", True, (255,255,255))#text and font colour
-    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/5))
+    textlocation = text.get_rect(center=(WIDTH/2,HEIGHT/4))
 
     while pause:  #while True loop works when pause is changed to True
         for event in pygame.event.get():
@@ -269,8 +269,8 @@ def paused(): #pause game function
         displaysurface.fill((Background_colour)) #changes screen colour
         displaysurface.blit(text, (textlocation)) #print text and text location
 
-        button("Continue", 75, 250, 100, 60, (14,229,57), (131,198,144), unpaused)#runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, unpause function
-        button("Quit", 225, 250, 100, 60, (200,3,3), (100,3,3), quitgame)#runs quitgame function
+        button("Continue", 75, 190, 100, 60, (14,229,57), (131,198,144), unpaused)#runs in this order -- text, background x axis location, background y axis location, width of background, height of background, background colour, background on hover colour, unpause function
+        button("Quit", 225, 190, 100, 60, (200,3,3), (100,3,3), quitgame)#runs quitgame function
 
         pygame.display.update() #updates screen
 
