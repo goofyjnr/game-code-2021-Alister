@@ -31,6 +31,15 @@ platform_colour = (30, 176, 35)
 Background_colour = (39,39,39)
 
 #--------------------------------------------------------------#
+#music code
+
+pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
+pygame.init()
+pygame.mixer.init()
+pygame.mixer.music.load('Megalovania - Undertale [Piano Tutorial] (Synthesia).wav')
+pygame.mixer.music.play(-1)
+
+#---------------------------------------------------------------#
 
 
 pause = False  #sets pause variable as false
@@ -284,9 +293,8 @@ PT1.point = False #stops the main platform from giving you points
 P1 = Player1() #sets player 1 as the player class
 P2 = Player2() # sets up player 2 as the player 2 class
 
-#-------------------------------------------------------------------------------#
-#sets up the main platform that the players spawn on
 
+#sets up the main platform that the players spawn on
 PT1.surf = pygame.Surface((WIDTH, 20))
 PT1.surf.fill((PT1_Colour)) #this sets the colour of the main platform
 PT1.rect = PT1.surf.get_rect(center = (WIDTH/2, HEIGHT - 10))
