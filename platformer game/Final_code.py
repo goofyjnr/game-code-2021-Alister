@@ -2,7 +2,7 @@
 #set up of my game
 
 
-
+ 
 import pygame #Imports Pygame alowing us to make a game
 from pygame.locals import *  #this gives the all the local varabials e.g. pygame.quit
 import sys #imports the sys
@@ -15,15 +15,16 @@ vec = pygame.math.Vector2 #2 for two dimensional
 
 
 
-HEIGHT = 450 #sets the size of the screen 
+HEIGHT = 450 #sets the size of the screen
 WIDTH = 400 #sets the size of the screen
 ACC = 0.5  #sets the variable of  
 FRIC = -0.12 #sets the Friction as a variable
 FPS = 60 #sets the frames per second
 
 
+
 #---------------------------------------------------------------#
-#colour varbails to easly change the colours 
+#colour varbails to easly change the colours all in one place
 P1_Colour = (8,126,139)
 P2_Colour = (231,90,124)
 PT1_Colour = (251,176,45)
