@@ -1,7 +1,5 @@
 #simple platformer final code
-
-#set up of our game
-
+#set up of my game
 
 
 
@@ -25,7 +23,7 @@ FPS = 60 #sets the frames per second
 
 
 #---------------------------------------------------------------#
-#colour varbails
+#colour varbails to easly change the colours 
 P1_Colour = (8,126,139)
 P2_Colour = (231,90,124)
 PT1_Colour = (251,176,45)
@@ -36,9 +34,9 @@ Background_colour = (39,39,39)
 #music code
 
 pygame.mixer.pre_init(44100, -16, 2, 2048) # setup mixer to avoid sound lag
-pygame.init()
-pygame.mixer.init()
-pygame.mixer.music.load('Megalovania - Undertale [Piano Tutorial] (Synthesia).wav')
+pygame.init() #starts pygame
+pygame.mixer.init()#starts the music
+pygame.mixer.music.load('Megalovania - Undertale [Piano Tutorial] (Synthesia).wav')#plays the music I want it to
 pygame.mixer.music.play(-1)
 
 #---------------------------------------------------------------#
@@ -66,7 +64,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
         self.vel = vec(0,0) #sets the velsoity of the player moving
         self.acc = vec(0.5,0) #sets the acceleration
         self.jumping = False #sets up the jumping
-        self.score = 0       #Sets the score of zero at the start of the game
+        self.score = 0 #Sets the score of zero at the start of the game
         self.restart()
 
     def move(self):
@@ -74,10 +72,10 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
 
         pressed_keys = pygame.key.get_pressed() #this checks if the keys are presed to move
             
-        if pressed_keys[K_LEFT]: #this means if the left button is clicked it will do the code
-            self.acc.x = -ACC
-        if pressed_keys[K_RIGHT]: #This means if the Right button is cliked it will do the 
-            self.acc.x = ACC
+        if pressed_keys[K_LEFT]: #this means if the left button is clicked it will do the code to move left
+            self.acc.x = -ACC#this has to be negtive to make it move the opsite way or left
+        if pressed_keys[K_RIGHT]: #This means if the Right button is cliked it will do the code to move right
+            self.acc.x = ACC#makes it move right
                 
         self.acc.x += self.vel.x * FRIC 
         self.vel += self.acc
@@ -113,7 +111,7 @@ class Player1(pygame.sprite.Sprite): #this is the over all class for all of the 
                     self.vel.y = 0
                     self.jumping = False
     def restart(self):
-        self.pos = vec((390, 360))       #spawn position on a x,y axis
+        self.pos = vec((390, 360))      #spawn position on a x,y axis
         self.vel = vec(0,0)             #velocity on a x,y axis
         self.acc = vec(0,0)             #acceleration
         self.jumping = False            #sets jumping as false
@@ -136,8 +134,8 @@ class Player2(pygame.sprite.Sprite): #this is the over all class for all of the 
         self.vel = vec(0,0) #sets the velsoity of the player moving
         self.acc = vec(0.5,0) #sets the acceleration
         self.jumping = False #sets up the jumping
-        self.score = 0       #Sets the score of zero at the start of the game
-        self.restart()
+        self.score = 0      #Sets the score of zero at the start of the game
+        self.restart()#runs the restart for self
 
     def move(self):
         self.acc = vec(0,0.5)
@@ -242,7 +240,7 @@ def plat_gen(): #sets up the code for platform genration tell the game what it n
                             random.randrange(-50, 0))
             C = check(p, platforms)
         platforms.add(p)
-        all_sprites.add(p)
+        all_sprites.add(p) #spawns in all platforms
 
 def button (msg, x, y, w, h, ic, ac, action=None): #makes button work -- inside button() it has message/text, x axis, y axis, width, height, background colour 1, backgound colour 2, and function
     mouse =pygame.mouse.get_pos()
@@ -259,7 +257,7 @@ def button (msg, x, y, w, h, ic, ac, action=None): #makes button work -- inside 
     displaysurface.blit(text, (x, y))  #prints text and text location
 
 def quitgame():  #quits game function
-    pygame.quit()
+    pygame.quit() #quits the game
     quit()
 
 def unpaused(): #unpause game function
@@ -362,7 +360,7 @@ def reset():
                     P2.cancel_jump()    
 #-----------------------------------------------------------------#
 #code that kills player
-        if P1.rect.top <= HEIGHT / 3:
+        if P1.rect.top <= HEIGHT / 3: #if it gets to this height
             P1.pos.y += abs(P1.vel.y)
             for plat in platforms:
                 plat.rect.y += abs(P1.vel.y)
@@ -385,13 +383,13 @@ def reset():
                 playeralive2 = False
 
 #------------------------------------------------------------------#
-        plat_gen()          #platform generation
+        plat_gen()  #platform generation
 
         displaysurface.fill((Background_colour))   #sets the background colour
 
-        f = pygame.font.SysFont("Verdana", 20)                  #score font and size
-        g  = f.render(str(P1.score), True, (8,126,139))        #score colour
-        displaysurface.blit(g, (WIDTH/1.25, 10))                   #score location and prints score
+        f = pygame.font.SysFont("Verdana", 20)     #score font and size
+        g  = f.render(str(P1.score), True, (8,126,139))#score colour
+        displaysurface.blit(g, (WIDTH/1.25, 10))#score location and prints score
 
         f = pygame.font.SysFont("Verdana", 20)     #sets the font and size
         j  = f.render(str(P2.score), True, (231,90,124))   #Sets up the points system that can go u
@@ -477,13 +475,13 @@ while True:         #game loop
                 playeralive2 = False
 
 
-        plat_gen()          #platform generation
+        plat_gen()#platform generation
 
         displaysurface.fill((Background_colour))      
 
-        f = pygame.font.SysFont("Verdana", 20)                  #score font and size
-        g  = f.render(str(P1.score), True, (8,126,139))        #score colour
-        displaysurface.blit(g, (WIDTH/1.25, 10))                   #score location and prints score
+        f = pygame.font.SysFont("Verdana", 20)#score font and size
+        g  = f.render(str(P1.score), True, (8,126,139))#score colour
+        displaysurface.blit(g, (WIDTH/1.25, 10))#score location and prints score
 
          #sets up the points system for player 2
         f = pygame.font.SysFont("Verdana", 20)     #sets the font and size
@@ -498,3 +496,5 @@ while True:         #game loop
         FramePerSec.tick(FPS)
     
     gameover()#runs gameover function
+
+#I just wanted to say I had 500 lines
